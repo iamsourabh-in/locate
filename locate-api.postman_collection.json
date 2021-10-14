@@ -1,0 +1,29 @@
+{
+	"info": {
+		"_postman_id": "b4ed51d6-4863-4192-b782-ac95c57b653f",
+		"name": "locate-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Sessions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:1337/api/sessions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"sessions"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
