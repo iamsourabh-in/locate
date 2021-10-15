@@ -6,10 +6,10 @@ export interface ProfileDocument extends mongoose.Document {
     user: UserDocument["_id"];
     profileName: string;
     profileId: string;
-    name:string;
     email: string;
     phone: string;
     address: string;
+    viewcount: number;
     socials: [
         {
             name: string;
@@ -21,6 +21,7 @@ export interface ProfileDocument extends mongoose.Document {
             link: string
             createdAt: Date;
             updatedAt: Date;
+            viewcount: number;
         }
     ]
     createdAt: Date;
@@ -36,8 +37,80 @@ const ProfileSchema = new mongoose.Schema(
             default: () => nanoid(10),
         },
         user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    },
-    { timestamps: true }
+        profileName: {
+            type: String,
+            required: false
+        },
+
+        email: {
+            type: String,
+            required: false
+        },
+        phone: {
+            type: String,
+            required: false
+        },
+        address: {
+            type: String,
+            required: false
+        },
+        viewcount: {
+            type: String,
+            required: false
+        },
+        createdAt: {
+            type: Date,
+            required: false
+        },
+        updatedAt: {
+            type: Date,
+            required: false
+        },
+        socials: [
+            {
+                name: {
+                    type: String,
+                    required: false
+                },
+                image: {
+                    type: String,
+                    required: false
+                },
+                icon: {
+                    type: String,
+                    required: false
+                },
+                type: {
+                    type: String,
+                    required: false
+                },
+                fullUrl: {
+                    type: String,
+                    required: false
+                },
+                username: {
+                    type: String,
+                    required: false
+                },
+                link: {
+                    type: String,
+                    required: false
+                },
+                createdAt: {
+                    type: Date,
+                    required: false
+                },
+                updatedAt: {
+                    type: Date,
+                    required: false
+                },
+                viewcount: {
+                    type: Number,
+                    required: false
+                }
+            }
+        ]
+    }
 );
 
 const Profile = mongoose.model<ProfileDocument>("profile", ProfileSchema);

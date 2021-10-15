@@ -2,7 +2,7 @@ import { object, string } from "yup";
 
 const payload = {
   body: object({
-    name: string().required("Title is required")
+    profileName: string().required("Profile Name is required")
   }),
 };
 

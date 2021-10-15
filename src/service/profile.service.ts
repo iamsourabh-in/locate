@@ -14,6 +14,7 @@ import {
     query: FilterQuery<ProfileDocument>,
     options: QueryOptions = { lean: true }
   ) {
+    console.log(query);
     return Profile.findOne(query, {}, options);
   }
   
@@ -28,4 +29,6 @@ import {
   export function deleteProfile(query: FilterQuery<ProfileDocument>) {
     return Profile.deleteOne(query);
   }
+
+  
   

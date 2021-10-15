@@ -36,9 +36,9 @@ export async function updateProfileHandler(req: Request, res: Response) {
   return res.send(updatedProfile);
 }
 export async function getProfileHandler(req: Request, res: Response) {
-  const ProfileId = get(req, "params.ProfileId");
-  const Profile = await findProfile({ ProfileId });
-
+  const profileId = get(req, "params.profileId");
+  const Profile = await findProfile({ profileId });
+  console.log(profileId);
   if (!Profile) {
     return res.sendStatus(404);
   }
@@ -48,10 +48,10 @@ export async function getProfileHandler(req: Request, res: Response) {
 
 export async function deleteProfileHandler(req: Request, res: Response) {
   const userId = get(req, "user._id");
-  const ProfileId = get(req, "params.ProfileId");
+  const profileId = get(req, "params.profileId");
 
-  const Profile = await findProfile({ ProfileId });
-
+  const Profile = await findProfile({ profileId });
+  console.log(profileId);
   if (!Profile) {
     return res.sendStatus(404);
   }
@@ -60,7 +60,7 @@ export async function deleteProfileHandler(req: Request, res: Response) {
     return res.sendStatus(401);
   }
 
-  await deleteProfile({ ProfileId });
+  await deleteProfile({ profileId });
 
   return res.sendStatus(200);
 }
