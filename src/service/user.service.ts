@@ -4,6 +4,8 @@ import User, { UserDocument } from "../model/user.model";
 
 export async function createUser(input: DocumentDefinition<UserDocument>) {
   try {
+    input.isEmailVerified = false;
+    input.isPhoneVerified = false;
     return await User.create(input);
   } catch (error) {
     throw new Error(error);

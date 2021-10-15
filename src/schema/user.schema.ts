@@ -14,6 +14,8 @@ export const createUserSchema = object({
     email: string()
       .email("Must be a valid email")
       .required("Email is required"),
+    phone: string()
+      .required("Phone is required"),
   }),
 });
 

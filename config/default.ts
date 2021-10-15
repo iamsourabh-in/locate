@@ -1,7 +1,7 @@
 export default {
   port: 1337,
   host: "localhost",
-  dbUri: "mongodb://localhost:27017/rest-api",
+  dbUri: "mongodb://localhost:27017/locate",
   saltWorkFactor: 10,
   accessTokenTtl: "15m",
   refreshTokenTtl: "1y",
