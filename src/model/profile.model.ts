@@ -70,7 +70,7 @@ const ProfileSchema = new mongoose.Schema(
             {
                 name: {
                     type: String,
-                    required: false
+                    required: true
                 },
                 image: {
                     type: String,
@@ -82,7 +82,7 @@ const ProfileSchema = new mongoose.Schema(
                 },
                 type: {
                     type: String,
-                    required: false
+                    required: true
                 },
                 fullUrl: {
                     type: String,
@@ -90,11 +90,11 @@ const ProfileSchema = new mongoose.Schema(
                 },
                 username: {
                     type: String,
-                    required: false
+                    required: true
                 },
                 link: {
                     type: String,
-                    required: false
+                    required: true
                 },
                 createdAt: {
                     type: Date,

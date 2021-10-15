@@ -35,6 +35,7 @@ import {
   updateProfileHandler,
   getProfileHandler,
   deleteProfileHandler,
+  getUserProfilesHandler
 } from "./controller/profile.controller";
 
 export default function (app: Express) {
@@ -100,5 +101,11 @@ export default function (app: Express) {
     "/api/profile/:profileId",
     [requiresUser, validateRequest(deleteProfileSchema)],
     deleteProfileHandler
+  );
+
+  app.get(
+    "/api/user/profiles",
+    [requiresUser],
+    getUserProfilesHandler
   );
 }

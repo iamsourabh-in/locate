@@ -25,7 +25,7 @@ const UserSchema = new mongoose.Schema(
     isEmailVerified: { type: Boolean, required: true },
     isPhoneVerified: { type: Boolean, required: true },
     password: { type: String, required: true },
-    username: { type: String, required: true },
+    username: { type: String, required: true, unique: true },
     profileImageUrl: { type: String, required: false }
   },
   { timestamps: true }

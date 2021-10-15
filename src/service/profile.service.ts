@@ -30,5 +30,13 @@ import {
     return Profile.deleteOne(query);
   }
 
+  export function getUserProfiles(
+    query: FilterQuery<ProfileDocument>,
+    options: QueryOptions = { lean: true,multi:true }
+  ) {
+    console.log(query);
+    return Profile.find(query, {}, options);
+  }
+
   
   

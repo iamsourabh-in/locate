@@ -5,6 +5,7 @@ import {
   findProfile,
   findAndUpdate,
   deleteProfile,
+  getUserProfiles
 } from "../service/profile.service";
 
 export async function createProfileHandler(req: Request, res: Response) {
@@ -35,6 +36,17 @@ export async function updateProfileHandler(req: Request, res: Response) {
 
   return res.send(updatedProfile);
 }
+export async function getUserProfilesHandler(req: Request, res: Response) {
+  const user = get(req, "user._id");
+  const Profile = await getUserProfiles({ user });
+  console.log(user);
+  if (!Profile) {
+    return res.sendStatus(404);
+  }
+
+  return res.send(Profile);
+}
+
 export async function getProfileHandler(req: Request, res: Response) {
   const profileId = get(req, "params.profileId");
   const Profile = await findProfile({ profileId });
