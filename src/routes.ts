@@ -7,7 +7,7 @@ import {
   getPostHandler,
   deletePostHandler,
 } from "./controller/post.controller";
-import { createUserHandler } from "./controller/user.controller";
+import { createUserHandler,getUserInfo } from "./controller/user.controller";
 import {
   createUserSessionHandler,
   invalidateUserSessionHandler,
@@ -43,6 +43,10 @@ export default function (app: Express) {
 
   // Register user
   app.post("/api/users", validateRequest(createUserSchema), createUserHandler);
+  app.get("/api/users/info", getUserInfo);
+
+  
+
 
   // Login
   app.post(
