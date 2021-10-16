@@ -11,7 +11,7 @@ export interface UserDocument extends mongoose.Document {
   isPhoneVerified: boolean;
   address: string;
   username: string;
-  profileImageUrl : string;
+  profileImageUrl: string;
   createdAt: Date;
   updatedAt: Date;
   comparePassword(candidatePassword: string): Promise<boolean>;

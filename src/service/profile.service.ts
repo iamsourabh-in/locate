@@ -38,5 +38,13 @@ import {
     return Profile.find(query, {}, options);
   }
 
+  export function getProfileByName(
+    query: FilterQuery<ProfileDocument>,
+    options: QueryOptions = { lean: true}
+  ) {
+    console.log(query);
+    return Profile.find(query, {}, options);
+  }
+
   
   

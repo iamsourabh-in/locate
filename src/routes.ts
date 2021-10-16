@@ -1,115 +1,67 @@
 import { Express, Request, Response } from "express";
-import { Get, Route } from "tsoa";
-
-import {
-  createPostHandler,
-  updatePostHandler,
-  getPostHandler,
-  deletePostHandler,
-} from "./controller/post.controller";
-import { createUserHandler,getUserInfo } from "./controller/user.controller";
-import {
-  createUserSessionHandler,
-  invalidateUserSessionHandler,
-  getUserSessionsHandler,
-} from "./controller/session.controller";
+import { createPostHandler, updatePostHandler, getPostHandler, deletePostHandler, } from "./controller/post.controller";
+import { createUserHandler, getUserInfo } from "./controller/user.controller";
+import { createUserSessionHandler, invalidateUserSessionHandler, getUserSessionsHandler, } from "./controller/session.controller";
 import { validateRequest, requiresUser } from "./middleware";
-import {
-  createUserSchema,
-  createUserSessionSchema,
-} from "./schema/user.schema";
-import {
-  createPostSchema,
-  updatePostSchema,
-  deletePostSchema,
-} from "./schema/post.schema";
-
-import {
-  createProfileSchema,
-  updateProfileSchema,
-  deleteProfileSchema,
-} from "./schema/profile.schema";
-
-import {
-  createProfileHandler,
-  updateProfileHandler,
-  getProfileHandler,
-  deleteProfileHandler,
-  getUserProfilesHandler
-} from "./controller/profile.controller";
+import { createUserSchema, createUserSessionSchema, } from "./schema/user.schema";
+import { createPostSchema, updatePostSchema, deletePostSchema, } from "./schema/post.schema";
+import { createProfileSchema, updateProfileSchema, deleteProfileSchema, } from "./schema/profile.schema";
+import { createProfileHandler, updateProfileHandler, getProfileHandler, deleteProfileHandler, getUserProfilesHandler, getProfilesbyNameHandler } from "./controller/profile.controller";
 
 export default function (app: Express) {
   app.get("/healthcheck", (req: Request, res: Response) => res.sendStatus(200));
 
   // Register user
-  app.post("/api/users", validateRequest(createUserSchema), createUserHandler);
-  app.get("/api/users/info", getUserInfo);
+  const usersRoute = "/api/users";
 
-  
+  app.post(usersRoute, validateRequest(createUserSchema), createUserHandler);
+  app.get(usersRoute + "/info", getUserInfo);
+  app.get(usersRoute + "/profiles", [requiresUser], getUserProfilesHandler);
 
-
-  // Login
-  app.post(
-    "/api/sessions",
-    validateRequest(createUserSessionSchema),
-    createUserSessionHandler
-  );
+  const sessionsRoute = "/api/sessions";
 
   // Get the user's sessions
-  app.get("/api/sessions", requiresUser, getUserSessionsHandler);
+  app.get(sessionsRoute, requiresUser, getUserSessionsHandler);
+
+  // Login
+  app.post(sessionsRoute, validateRequest(createUserSessionSchema), createUserSessionHandler);
 
   // Logout
-  app.delete("/api/sessions", requiresUser, invalidateUserSessionHandler);
+  app.delete(sessionsRoute, requiresUser, invalidateUserSessionHandler);
 
 
+  const postsRoute = "/api/posts";
+
+  // Get a post
+  app.get(postsRoute + "/:postId", getPostHandler);
 
   // Create a post
-  app.post(
-    "/api/posts",
-    [requiresUser, validateRequest(createPostSchema)],
-    createPostHandler
-  );
+  app.post(postsRoute, [requiresUser, validateRequest(createPostSchema)], createPostHandler);
+
   // Update a post
-  app.put(
-    "/api/posts/:postId",
-    [requiresUser, validateRequest(updatePostSchema)],
-    updatePostHandler
-  );
-  // Get a post
-  app.get("/api/posts/:postId", getPostHandler);
+  app.put(postsRoute + "/:postId", [requiresUser, validateRequest(updatePostSchema)], updatePostHandler);
+
   // Delete a post
-  app.delete(
-    "/api/posts/:postId",
-    [requiresUser, validateRequest(deletePostSchema)],
-    deletePostHandler
-  );
+  app.delete(postsRoute + " /: postId", [requiresUser, validateRequest(deletePostSchema)], deletePostHandler);
+
+
+  const profileRoute = "/api/profile";
+
+  // Get profile by id
+  app.get(profileRoute + "/:profileId", getProfileHandler);
+
+  // Get a profile by name
+  app.get(profileRoute + "/name/:profileName", [requiresUser], getProfilesbyNameHandler);
+
+  // Create a profile
+  app.post(profileRoute, [requiresUser, validateRequest(createProfileSchema)], createProfileHandler);
+
+  // Update a profile
+  app.put(profileRoute + "/:profileId", [requiresUser, validateRequest(updateProfileSchema)], updateProfileHandler);
+
+  // Delete a profile
+  app.delete(profileRoute + "/:profileId", [requiresUser, validateRequest(deleteProfileSchema)], deleteProfileHandler);
 
 
 
-  // Create a post
-  app.post(
-    "/api/profile",
-    [requiresUser, validateRequest(createProfileSchema)],
-    createProfileHandler
-  );
-  // Update a post
-  app.put(
-    "/api/profile/:profileId",
-    [requiresUser, validateRequest(updateProfileSchema)],
-    updateProfileHandler
-  );
-  // Get a post
-  app.get("/api/profile/:profileId", getProfileHandler);
-  // Delete a post
-  app.delete(
-    "/api/profile/:profileId",
-    [requiresUser, validateRequest(deleteProfileSchema)],
-    deleteProfileHandler
-  );
-
-  app.get(
-    "/api/user/profiles",
-    [requiresUser],
-    getUserProfilesHandler
-  );
 }
