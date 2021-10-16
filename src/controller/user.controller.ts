@@ -16,8 +16,9 @@ export async function createUserHandler(req: Request, res: Response) {
 
 export async function getUserInfo(req: Request, res: Response) {
   try {
-    const userId = get(req, "user._id");
-    const user = await findUser({ userId });
+    console.log(req["user"]);
+    const _id = get(req, "user._id");
+    const user = await findUser({ _id });
     return res.send(omit(user, "password"));
   } catch (e) {
     log.error(e);
