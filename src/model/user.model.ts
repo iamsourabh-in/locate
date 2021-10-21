@@ -11,6 +11,7 @@ export interface UserDocument extends mongoose.Document {
   isPhoneVerified: boolean;
   address: string;
   username: string;
+  subscription: string;
   profileImageUrl: string;
   createdAt: Date;
   updatedAt: Date;
@@ -26,7 +27,8 @@ const UserSchema = new mongoose.Schema(
     isPhoneVerified: { type: Boolean, required: true },
     password: { type: String, required: true },
     username: { type: String, required: true, unique: true },
-    profileImageUrl: { type: String, required: false }
+    profileImageUrl: { type: String, required: false },
+    subscription: { type: String, required: true, unique: true }
   },
   { timestamps: true }
 );

@@ -6,7 +6,8 @@ import {
   findAndUpdate,
   deleteProfile,
   getUserProfiles,
-  getProfileByName
+  getProfileByName,
+  getDashboardDetails
 } from "../service/profile.service";
 
 export async function createProfileHandler(req: Request, res: Response) {
@@ -88,4 +89,15 @@ export async function deleteProfileHandler(req: Request, res: Response) {
   await deleteProfile({ profileId });
 
   return res.sendStatus(200);
+}
+
+export async function getDashboardDetailsHandler(req: Request, res: Response) {
+  const user = get(req, "user._id");
+  const Profile = await getDashboardDetails({ user });
+  console.log(user);
+  if (!Profile) {
+    return res.sendStatus(404);
+  }
+
+  return res.send(Profile);
 }

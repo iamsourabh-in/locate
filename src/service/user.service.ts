@@ -1,11 +1,13 @@
 import { DocumentDefinition, FilterQuery } from "mongoose";
 import { omit } from "lodash";
 import User, { UserDocument } from "../model/user.model";
+import { Constants } from "../utils/constants.utils";
 
 export async function createUser(input: DocumentDefinition<UserDocument>) {
   try {
     input.isEmailVerified = false;
     input.isPhoneVerified = false;
+    input.subscription = Constants.Subscription_Basic;
     return await User.create(input);
   } catch (error) {
     throw new Error(error);

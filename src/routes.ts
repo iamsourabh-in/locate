@@ -6,7 +6,7 @@ import { validateRequest, requiresUser } from "./middleware";
 import { createUserSchema, createUserSessionSchema, } from "./schema/user.schema";
 import { createPostSchema, updatePostSchema, deletePostSchema, } from "./schema/post.schema";
 import { createProfileSchema, updateProfileSchema, deleteProfileSchema, } from "./schema/profile.schema";
-import { createProfileHandler, updateProfileHandler, getProfileHandler, deleteProfileHandler, getUserProfilesHandler, getProfilesbyNameHandler } from "./controller/profile.controller";
+import { createProfileHandler, updateProfileHandler, getProfileHandler, deleteProfileHandler, getUserProfilesHandler, getProfilesbyNameHandler, getDashboardDetailsHandler } from "./controller/profile.controller";
 
 export default function (app: Express) {
   app.get("/healthcheck", (req: Request, res: Response) => res.sendStatus(200));
@@ -17,6 +17,9 @@ export default function (app: Express) {
   app.post(usersRoute, validateRequest(createUserSchema), createUserHandler);
   app.get(usersRoute + "/info", getUserInfo);
   app.get(usersRoute + "/profiles", [requiresUser], getUserProfilesHandler);
+  app.get(usersRoute + "/dashboard", [requiresUser], getDashboardDetailsHandler);
+
+
 
   const sessionsRoute = "/api/sessions";
   // Get the user's sessions
