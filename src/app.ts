@@ -6,8 +6,8 @@ import routes from "./routes";
 import { deserializeUser } from "./middleware";
 const cors = require('cors');
 
-const port = config.get("port") as number;
-const host = config.get("host") as string;
+const port = process.env.PORT || 3000;
+const host = "localhost";
 
 const app = express();
 app.use(deserializeUser);
@@ -18,7 +18,7 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.listen(port, host, () => {
+app.listen(port as number, host, () => {
   log.info(`Server listing at http://${host}:${port}`);
 
   connect();
