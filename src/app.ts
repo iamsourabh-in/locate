@@ -5,15 +5,12 @@ import connect from "./db/connect";
 import routes from "./routes";
 import { deserializeUser } from "./middleware";
 const cors = require('cors');
-const swaggerUi = require('swagger-ui-express')
-const swaggerFile = require('../swagger.json')
 
 const port = config.get("port") as number;
 const host = config.get("host") as string;
 
 const app = express();
 app.use(deserializeUser);
-app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 app.use(cors({
   methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH'],
   origin: 'http://localhost:4200'
