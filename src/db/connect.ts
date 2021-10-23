@@ -3,7 +3,7 @@ import config from "config";
 import log from "../logger";
 
 function connect() {
-  const dbUri = "mongodb://localhost:27017/locate";
+  const dbUri = "mongodb+srv://dbuser:dbpass@cluster0.giomj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
   return mongoose
     .connect(dbUri, {
