@@ -4,11 +4,20 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "start": "nodemon --config nodemon.json src/app.ts",
+        "start": "node dist/app.js",
+        "postinstall": "tsc",
+        "watch-node": "nodemon dist/app.js",
+        "watch-ts": "tsc -w",
+        "deploy": "git add . && git commit -m Heroku && git push heroku master",
+        "dev": "nodemon --config nodemon.json src/app.ts",
         "swagger-autogen": "node utils/swagger-util.js"
     },
     "author": "",
     "license": "ISC",
+    "engines": {
+        "node": "12.16.1",
+        "npm": "6.14.15"
+    },
     "dependencies": {
         "bcrypt": "^5.0.1",
         "config": "^3.3.6",
