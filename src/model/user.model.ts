@@ -28,7 +28,7 @@ const UserSchema = new mongoose.Schema(
     password: { type: String, required: true },
     username: { type: String, required: true, unique: true },
     profileImageUrl: { type: String, required: false },
-    subscription: { type: String, required: true, unique: true }
+    subscription: { type: String, required: true }
   },
   { timestamps: true }
 );
